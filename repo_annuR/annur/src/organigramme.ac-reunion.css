@@ -1,0 +1,450 @@
+@charset "utf-8";
+/* Média fluide simple
+   Remarque : un média fluide exige que vous supprimiez les attributs de hauteur et de largeur du média du code HTML
+   http://www.alistapart.com/articles/fluid-images/ 
+*/
+img, object, embed, video {
+	max-width: 100%;
+}
+/* IE 6 ne prend pas en charge max-width ; la largeur par défaut est donc fixée à 100% */
+.ie6 img {
+	width:100%;
+}
+
+/*
+	Propriétés de grille fluide Dreamweaver
+	----------------------------------
+	dw-num-cols-mobile:		5;
+	dw-num-cols-tablet:		8;
+	dw-num-cols-desktop:	10;
+	dw-gutter-percentage:	25;
+	
+	Inspiré par "Responsive Web Design" par Ethan Marcotte 
+	http://www.alistapart.com/articles/responsive-web-design
+	
+	et le système Golden Grid par Joni Korpi
+	http://goldengridsystem.com/
+*/
+
+/* Disposition mobile : 570px et moins. */
+
+.gridContainer {
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+}
+#content {
+	clear: both;
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	display: block;
+}
+h1, h1 a {
+	font-size: 1em;
+	font-weight: normal;
+	text-transform: uppercase;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	color:#FFF;
+}
+h1 a:hover {
+	color:#effceb;
+	text-decoration:none;
+}
+#recteur h1, #recteur h1 a, #recteur h1 a:visited, #daasen h1, #daasen h1 a, #daasen h1 a:visited, #sg h1, #sg h1 a, #sg h1 a:visited {
+	color:#ffffff;
+}
+#cabinet h1, #cabinet h1 a {
+	color:#244c0b;
+}
+#cabinet h1 a:hover {
+	color:#0066cd;
+	text-decoration:none;
+}
+h2 {
+	font-size: 0.9em;
+	font-weight: bold;
+	padding: 0;
+	margin: 0.2em;
+	text-align: center;
+	font-weight:normal;
+}
+#mediatrice h2 a {
+	color:#4c4c4c;
+	text-decoration:none;
+}
+#mediatrice h2 a:hover {
+	color:#0066cd;
+	text-decoration:none;
+}
+h2.pole {
+	font-size: 1em;
+	font-weight: bold;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin: 0;
+	text-align: center;
+	font-weight:bold;
+	color:#FFF;
+}
+span.nom {
+	font-weight:bold;
+}
+p {
+	font-size: 0.9em;
+	text-align: center;
+	margin:0;
+}
+.detail-agent p {
+	text-align:left;
+}
+p.fonction {
+	text-transform: uppercase;
+}
+p.nom {
+	font-weight: bold;
+	margin-top:0.3em;
+}
+p a.conseiller-technique, span.conseiller-technique {
+	color: #3b8211;
+	font-weight: bold;
+}
+p a.conseiller-technique:hover {
+	color: #0066cd;
+	text-decoration:underline;
+}
+span.sg {
+	color: #ffffff;	
+}
+.row4-fond-rouge a:hover, .row4-fond-prune a:hover, .row4-fond-corail a:hover, .row4-fond-marine a:hover, .row4-fond-gris a:hover {
+	color: #0066cd;
+}
+.row4-fond-rouge a {
+	color: #e74b1d;
+	text-decoration:none;
+}
+.row4-fond-prune a {
+	color:#941b80;
+	text-decoration:none;
+}
+.row4-fond-corail a {
+	color:#e04;
+	text-decoration:none;
+}
+.row4-fond-marine a {
+	color:#004d94;
+	text-decoration:none;
+}
+.row4-fond-gris a {
+	color:#4c4c4c;
+	text-decoration:none;
+}
+
+/* début Ligne recteur-cabinet--------------------------*/
+#content-row1 {
+	clear: both;
+	width: 90%;
+	display: block;
+	margin-top:1.5em;
+	margin-left:auto;
+	margin-right:auto;
+}
+#recteur, #cabinet, #mediatrice {
+	clear: both;
+	margin-bottom:0.5em;
+	width: 100%;
+	display: block;
+}
+.row1-fond-couleur {
+	background-color:#244c0b;
+	border-radius:0.5em;
+	color:#FFF;
+	border: 1px solid #244c0b;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+.row1-contour-couleur {
+	border-radius: 0.5em;
+	color: #244c0b;
+	border: 1px solid #244c0b;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+.row1-contour-gris{
+	border-radius: 0.5em;
+	color: #666;
+	border: 1px solid #666;
+	padding-top:0.2em;
+	padding-bottom:0.2em;
+}
+
+
+/* fin Ligne recteur-cabinet--------------------------*/
+/* Début Ligne SG-DAASEN--------------------------*/
+#content-row2 {
+	clear: both;
+	width: 90%;
+	display: block;
+	margin-top:1em;
+	margin-left:auto;
+	margin-right:auto;
+}
+#daasen {
+	clear: none;
+	float:left;
+	margin-bottom:0.5em;
+	width: 49%;
+	display: block;
+	min-height:11em;
+}
+#sg{
+	clear: none;
+	float:right;
+	margin-bottom:0.5em;
+	width: 49%;
+	display: block;
+	min-height:11em;
+}
+.row2-fond-couleur {
+	background-color:#3b8211;
+	border-radius:0.5em;
+	color:#FFF;
+	border: 1px solid #3b8211;
+	padding-top:0.5em;
+}
+/* fin Ligne SG-DAASEN--------------------------*/
+/* début Ligne inspecteurs-CT--------------------------*/
+#content-row3 {
+	clear: both;
+	width: 90%;
+	display: block;
+	margin-top:1em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.row3-fond-gris {
+	background-color:#4c4c4c;
+	border-radius:0.5em;
+	color: #4c4c4c;
+	border: 1px solid #4c4c4c;
+}
+#conseillers-techniques div.pole-content {
+	-webkit-columns: 1;
+	-moz-columns: 1;
+	columns: 1;
+}
+/* fin Ligne inspecteurs-CT--------------------------*/
+/* Début Ligne Poles--------------------------*/
+#content-row4 {
+	clear: both;
+	width: 90%;
+	display: block;
+	margin-top:1em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.row4-fond-rouge {
+	background-color:#e74b1d;
+	border-radius:0.5em;
+	color: #e74b1d;
+	border: 1px solid #e74b1d;
+}
+.row4-fond-prune {
+	background-color:#941b80;
+	border-radius:0.5em;
+	color:#941b80;
+	border: 1px solid #941b80;
+}
+.row4-fond-corail {
+	background-color:#e04;
+	border-radius:0.5em;
+	color:#e04;
+	border: 1px solid #e04;
+}
+.row4-fond-marine {
+	background-color:#004d94;
+	border-radius:0.5em;
+	color:#004d94;
+	border: 1px solid #004d94;
+}
+.row4-fond-gris {
+	background-color:#4c4c4c;
+	border-radius:0.5em;
+	color:#4c4c4c;
+	border: 1px solid #4c4c4c;
+}
+.pole-content {
+	background-color: #ffffff;	
+	border-bottom-left-radius:0.6em;
+	border-bottom-right-radius:0.6em;
+	padding-bottom:0.5em;
+	padding-top:0.5em;
+	margin-top:0.3em;
+}
+.pole-content p {
+	text-align:left;
+	margin-left:1em;
+	margin-bottom:0.4em;
+}
+#pedagogique, #ressources-humaines, #scolarite, #budget, #inspecteurs, #conseillers-techniques, #instances, #sante-social {
+	clear: both;
+	margin-bottom:0.5em;
+	width: 100%;
+	display: block;
+}
+/* Fin Ligne Poles--------------------------*/
+/* Début Ligne comités--------------------------*/
+#content-row5 {
+	clear: both;
+	width: 90%;
+	display: block;
+	margin-top:1em;
+	margin-left:auto;
+	margin-right:auto;
+}
+.row5-fond-couleur {
+	background-color: #930;
+	border-radius:0.5em;
+	color:#FFF;
+	border: 1px solid #930;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+	-webkit-columns: 1;
+	-moz-columns: 1;
+	columns: 1;
+}
+
+/* Disposition tablette : 481px sur 768px. Hérite des styles de : Disposition mobile */
+
+@media only screen and (min-width: 570px) {
+
+/* début Ligne recteur-cabinet--------------------------*/
+
+#recteur {
+	clear: none;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	width: 55%;
+	float:left;
+}
+#cabinet {
+	clear: none;
+	float:right;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+	width: 42%;
+}
+
+/* fin Ligne recteur-cabinet--------------------------*/
+/* Début Ligne SG-DAASEN--------------------------*/
+#content-row2 {
+	width: 80%;
+}
+.row2-fond-couleur {
+	padding-bottom:0;
+}
+/* Fin Ligne SG-DAASEN--------------------------*/
+
+/* Début Ligne inspecteurs-CT--------------------------*/
+#inspecteurs, #conseillers-techniques {
+	clear: none;
+	float:left;
+	margin-right:0.5%;
+}
+#inspecteurs {
+	width:29%;
+}
+#conseillers-techniques {
+	width:69%;
+}
+#conseillers-techniques div.pole-content {
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	columns: 2;
+}
+
+/* Fin Ligne inspecteurs-CT--------------------------*/
+/* Début Ligne Poles--------------------------*/
+#scolarite, #ressources-humaines, #budget, #sante-social {
+	clear: none;
+	float:left;
+	width:49%;
+	margin-right:0.7%;
+}
+#pedagogique {
+	clear: both;
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+}
+#pedagogique div.pole-content {
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	columns: 2;
+}
+
+#sante-social, #conseillers-techniques {
+	margin-right:0; !important
+}
+/* Fin Ligne Poles--------------------------*/
+/* Début Ligne comités--------------------------*/
+.row5-fond-couleur {
+	-webkit-columns: 2;
+	-moz-columns: 2;
+	columns: 2;
+}
+
+/* Fin Ligne comités--------------------------*/
+}
+
+/* Disposition bureau : 769px à max. 1280px.  Hérite des styles de : Disposition mobile et disposition tablette */
+
+@media only screen and (min-width: 1024px) {
+.gridContainer {
+	max-width: 1280px;
+}
+/* début Ligne recteur-cabinet--------------------------*/
+
+#recteur {
+	width: 65%;
+
+}
+#cabinet {
+	width: 33%;
+}
+
+/* fin Ligne recteur-cabinet--------------------------*/
+/* Début Ligne SG-DAASEN--------------------------*/
+#daasen{
+	width: 49%;
+}
+#sg {
+	width: 49%;
+}
+/* Fin Ligne SG-DAASEN--------------------------*/
+
+
+/* Début Ligne Poles--------------------------*/
+#scolarite, #ressources-humaines, #budget, #sante-social {
+	clear: none;
+	float:left;
+	width:24.4%;
+	margin-right:0.5%;
+	margin-left:0%;
+}
+
+#sante-social {
+	margin-right:0; !important
+}
+/* Fin Ligne Poles--------------------------*/
+}
+/*----------page agent-division etc.-----------*/
+#content-row1.detail-agent {
+width: 1152px;
+}
+#content-row1.detail-login {
+align: center;
+width: 1152px;
+}

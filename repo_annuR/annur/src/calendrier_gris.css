@@ -1,0 +1,102 @@
+/* Définition de règle */
+@charset "iso-8859-1";
+
+
+/* style pour les nom des champs de saisie */
+ 
+.f-nom-champs {
+	padding: 1px 1px 1px 1px;
+	font-family: arial,sans-serif;
+	font-size: 8pt;
+	text-align: left;
+	background-color: #fff;
+	border-bottom: 1px #888 solid;
+	color: #dea700;
+}
+ 
+
+/* style englobant tout le calendrier */
+#calendrier {
+	color: #000;
+	width: 160px;
+}
+
+/* style pour chaque partie du calendrier (haut et jours du mois) */
+#calendrier-haut, #calendrier-jours {
+	width: 160px;
+}
+
+#calendrier-haut {
+	height: 20px;
+	background-color: #ddd;
+	padding: 1px 0px 1px 0px; 
+	border-top: 1px #fff solid;
+	border-right: 1px #888 solid;
+	border-bottom: 1px #888 solid;
+	border-left: 1px #fff solid;
+}
+
+.calendrier-fleche {
+	width: 15px;
+	text-align: center;
+}
+
+/* style pour le mois et l'année */
+#calendrier-mois-an {
+	padding: 1px 1px 1px 1px;
+	font-family: arial,sans-serif; 
+	font-size: 9pt;
+	text-align: center;
+}
+
+/* les 2 styles suivants pour les jours de la semaine (semaine et fin de semaine) */
+.calendrier-sem, .calendrier-fin-sem {
+	padding: 1px 1px 1px 1px;
+	font-family: arial,sans-serif;
+	font-size: 8pt;
+	text-align: right;
+	background-color: #fff;
+	border-bottom: 1px #888 solid;
+}
+
+/* style pour les jours de la semaine correspondants au week-end */
+.calendrier-fin-sem {
+	color: #dea700;
+}
+
+/* les styles suivants pour les jours du mois */
+.calendrier-jour, .calendrier-jour-auj, .calendrier-jour-we, .calendrier-jour-horsmois {
+	padding: 1px 1px 0px 1px;
+	width: 20px;
+	font-family: arial,sans-serif;
+	font-size: 8pt;
+	text-align: right;
+}
+
+/* style pour la date du jour */
+.calendrier-jour-auj {
+	font-weight: bold;
+	color: #000;
+	background-color: #ddd;
+	border-top: 1px #fff solid;
+	border-right: 1px #888 solid;
+	border-bottom: 1px #888 solid;
+	border-left: 1px #fff solid;
+}
+
+/* style pour les jours de week-end */
+.calendrier-jour-we {
+	color: #dea700;
+}
+
+/* style pour les jours hors du mois affiché */
+.calendrier-jour-horsmois {
+	color: #888;
+	font-style: italic;
+}
+
+/* style pour les jours fériés */
+.calendrier-jour-ferie {
+	font-weight: bold;
+}
+	

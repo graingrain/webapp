@@ -1,0 +1,237 @@
+
+<script type="text/javascript" language="javascript">
+
+<!--
+
+// Updates the title of the frameset if possible (ns4 does not allow this)
+
+if (typeof(parent.document.title) == 'string') {
+
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+
+}
+
+
+
+// js form validation stuff
+
+var errorMsg0   = 'Formulaire incomplet !';
+
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+
+var errorMsg2   = ' n\'est pas un nombre valide !';
+
+var noDropDbMsg = 'La commande "DROP DATABASE" est désactivée.';
+
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+
+//-->
+
+function setPointer(theRow, thePointerColor)
+
+{
+
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {
+
+        return false;
+
+    }
+
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+
+        var theCells = theRow.getElementsByTagName('td');
+
+    }
+
+    else if (typeof(theRow.cells) != 'undefined') {
+
+        var theCells = theRow.cells;
+
+    }
+
+    else {
+
+        return false;
+
+    }
+
+
+
+    var rowCellsCnt  = theCells.length;
+
+    for (var c = 0; c < rowCellsCnt; c++) {
+
+        theCells[c].style.backgroundColor = thePointerColor;
+
+    }
+
+
+
+    return true;
+
+} // end of the 'setPointer()' function
+
+
+
+</script>
+
+
+<% if((userinfo.getProfil()>=0)) { %>
+<div align="left"   >
+<table  with="100%"  border="0"  cellspacing="0"  >
+<tr style="border-top: 1px solid #3b8211;" > 
+      <td height="1" colspan=13 bgcolor="#FFFFFF"><strong>Liste des Membres de 
+        ce partage</strong> </td>
+    </tr> 
+  
+  <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb agents:"+allagent.size());
+		 int wcodeagt=-1; 
+   for(int a=0; a < allagent.size(); a++) 
+   {    ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a);
+  		     System.out.println("___:"+wcodeagt+ " "+ A.getAg_code());
+			 if (A.getAp_type()==3 || A.getAp_type()==0)
+			 {
+    %>
+  <tr   onmouseover="setPointer(this, '#FFFFCC')" onmouseout="setPointer(this, '#ffffff')" > 
+    <td width="17"  > <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>">
+	<% String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   File f = new File(fimg);
+	   if (f.length() != 0) out.println("<img src='images/tete.gif' border='0')>");
+	 %> 	     </a>     </td>
+    <td width="18" colspan="-6"  > 
+	
+	 <%  if((userinfo.getProfil()>=3)||(userinfo.getProfil()>=1&&E.getAg_code()<=0)||(userinfo.getProfil()==2&&E.getDv_code()==userinfo.getDv_code())||(userinfo.getProfil()==1&&E.getSv_code()==userinfo.getSv_code())) { %>
+ 
+   	  <a href="Dispatcher?operation=partage&table=partage&bsubmit=SupprimerAffectation&codedv=<%=A.getPa_dv_code()%>&codepa=<%=A.getPa_code()%>&codeag=<%=A.getAp_ag_code()%>&uid=<%=A.getAg_ldap_uid()%>&partage=<%=A.getPa_nom()%>"  >
+	<img src="images/poubelle.gif" width="14" height="14"> </a>
+	</td>
+    <td  >
+	<%if (A.getAg_ldap_title() != null) { %> <%=A.getAg_ldap_title()%><% } %>
+	 <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>">
+	 <%if (A.getAg_ldap_nom() != null) { %><strong><%=A.getAg_ldap_nom()%></strong></a>&nbsp;<%=A.getAg_ldap_prenom()%> <% } %>   </td>
+    
+    <% if (userinfo.getProfil()>=3) { %>     <td width="25"> <%if (A.getAg_code() != 0) { %>&nbsp;<%=A.getAg_code()%>           <% } %>   </td>    <% } %>
+    <% if (userinfo.getProfil()>=3) { %>     <td width="25"> <%if (A.getAg_ldap_uid() != null) { %>&nbsp;<%=A.getAg_ldap_uid()%>  <% } %> </td>    <% } %>
+    <td width="25"  bgcolor="#FFFFFF"><strong>&nbsp;<%=A.getAf_telephone()%></strong>     </td>
+    <% if (userinfo.getProfil()>=2) { %> 	<td width="26"  bgcolor="#FFFFFF">&nbsp;<strong>&nbsp;<%=A.getAf_telephone_dir()%></strong></td>	<% } %>
+	
+    <td width="22"    ><strong>&nbsp;<%=A.getAf_bureau()%></strong></td>
+    <td width="113" >&nbsp;
+		<%if (A.getSv_nom() != null && A.getSv_nom().length()>1) { %>	<%=A.getSv_nom()%> <% }   %>
+		<%if (A.getDv_nom() != null && A.getDv_nom().length()>1) { %>	<%=A.getDv_nom()%> <% }   %>
+ 	</td>
+    <td     nowrap bgcolor="#FFFFFF"> <%if (A.getAg_ldap_mail() != null) { %>&nbsp; <%=A.getAg_ldap_mail()%> <% }   %></td>
+    <td width="1"> <%=A.getAf_mission()%></td>
+	<td width="2"> <%=A.getAp_type()%></td>
+	  <td width="29"><font size="3"> &nbsp;&nbsp;&nbsp;<%=A.getAp_droits()%></font></td>
+  </tr>
+  <% } } } %>
+  
+<tr style="border-top: 1px solid #3b8211;" > 
+      <td height="1" colspan=13 bgcolor="#FFFFFF"><strong>Liste des Groupes de 
+        ce partage </strong></td>
+    </tr> 
+  
+  <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb agents:"+allagent.size());
+		 
+   for(int a=0; a < allagent.size(); a++) 
+   {    ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a);
+  		     System.out.println("___:"+wcodeagt+ " "+ A.getAg_code());
+			 if (A.getAp_type()==2 )
+			 {
+    %>
+  <tr   onmouseover="setPointer(this, '#FFFFCC')" onmouseout="setPointer(this, '#ffffff')" > 
+    <td width="17"  > <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>">
+	<% String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   File f = new File(fimg);
+	   if (f.length() != 0) out.println("<img src='images/tete.gif' border='0')>");
+	 %> 	     </a>     </td>
+    <td width="18" colspan="-6"  > 
+	
+	 <%  if((userinfo.getProfil()>=3)||(userinfo.getProfil()>=1&&E.getAg_code()<=0)||(userinfo.getProfil()==2&&E.getDv_code()==userinfo.getDv_code())||(userinfo.getProfil()==1&&E.getSv_code()==userinfo.getSv_code())) { %>
+ 
+   	  <a href="Dispatcher?operation=partage&table=partage&bsubmit=SupprimerAffectationGroupe&nomdv=<%=A.getDv_nom()%>&nomsv=<%=A.getSv_nom()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codepa=<%=A.getPa_code()%>&codeag=<%=A.getAp_ag_code()%>&uid=<%=A.getAg_ldap_uid()%>&partage=<%=A.getPa_nom()%>"  >
+	<img src="images/poubelle.gif" width="14" height="14"> </a>
+	</td>
+    <td  >
+	<%if (A.getAg_ldap_title() != null) { %> <%=A.getAg_ldap_title()%><% } %>
+	 <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>">
+	<%if (A.getDv_nom() != null && A.getDv_nom().length()>1) { %>	<strong><%=A.getDv_nom()%></strong></a>&nbsp;  <% } %>  <%if (A.getSv_nom() != null && A.getSv_nom().length()>1) { %>	<%=A.getSv_nom()%> <% }   %>  </td>
+    
+    <% if (userinfo.getProfil()>=3) { %>     <td  > <%if (A.getDv_code() != 0) { %>&nbsp;<%=A.getDv_code()%>           <% } %>   </td>    <% } %>
+    <% if (userinfo.getProfil()>=3) { %>     <td width="25"> <%if (A.getAg_ldap_uid() != null) { %>&nbsp;<%=A.getAg_ldap_uid()%>  <% } %> </td>    <% } %>
+    <td width="25"  bgcolor="#FFFFFF"><strong>&nbsp;<%=A.getAf_telephone()%></strong>     </td>
+    <% if (userinfo.getProfil()>=2) { %> 	<td width="26"  bgcolor="#FFFFFF">&nbsp;<strong>&nbsp;<%=A.getAf_telephone_dir()%></strong></td>	<% } %>
+	
+    <td width="22"    ><strong>&nbsp;<%=A.getAf_bureau()%></strong></td>
+    <td width="113" >&nbsp;
+		 
+		 
+ 	</td>
+    <td     nowrap bgcolor="#FFFFFF"> <%if (A.getAg_ldap_mail() != null) { %>&nbsp; <%=A.getAg_ldap_mail()%> <% }   %></td>
+    <td width="1"> <%=A.getAf_mission()%></td>
+	<td width="2"> <%=A.getAp_type()%></td>
+	  <td width="29"><font size="3"> &nbsp;&nbsp;&nbsp;<%=A.getAp_droits()%></font></td>
+  </tr>
+  <% } } } %>
+  
+<tr style="border-top: 1px solid #3b8211;" > 
+      <td height="1" colspan=13 bgcolor="#FFFFFF"><strong>Liste des Usagers de 
+        ce partage </strong></td>
+    </tr> 
+  
+  <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb agents:"+allagent.size());
+		 
+   for(int a=0; a < allagent.size(); a++) 
+   {    ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a);
+  		     System.out.println("___:"+wcodeagt+ " "+ A.getAg_code());
+			 if (A.getAp_type()==1 )
+			 {
+    %>
+  <tr   onmouseover="setPointer(this, '#FFFFCC')" onmouseout="setPointer(this, '#ffffff')" > 
+    <td width="17"  > <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>">
+	<% String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   File f = new File(fimg);
+	   if (f.length() != 0) out.println("<img src='images/tete.gif' border='0')>");
+	 %> 	     </a>     </td>
+    <td width="18" colspan="-6"  > 
+	
+	 <%  if((userinfo.getProfil()>=3)||(userinfo.getProfil()>=1&&E.getAg_code()<=0)||(userinfo.getProfil()==2&&E.getDv_code()==userinfo.getDv_code())||(userinfo.getProfil()==1&&E.getSv_code()==userinfo.getSv_code())) { %>
+ 
+   	  <a href="Dispatcher?operation=partage&table=partage&bsubmit=SupprimerAffectationUsager&codedv=<%=A.getPa_dv_code()%>&codepa=<%=A.getPa_code()%>&codeag=<%=A.getAp_ag_code()%>&uid=<%=A.getAg_ldap_uid()%>&partage=<%=A.getPa_nom()%>"  >
+	<img src="images/poubelle.gif" width="14" height="14"> </a>
+	</td>
+    <td  >
+	<%if (A.getAg_ldap_title() != null) { %> <%=A.getAg_ldap_title()%><% } %>
+	 <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>">
+	 <%if (A.getAg_ldap_nom() != null) { %><strong><%=A.getAg_ldap_nom()%></strong></a>&nbsp;<%=A.getAg_ldap_prenom()%> <% } %>   </td>
+    
+    <% if (userinfo.getProfil()>=3) { %>     <td width="25"> <%if (A.getAg_code() != 0) { %>&nbsp;<%=A.getAg_code()%>           <% } %>   </td>    <% } %>
+    <% if (userinfo.getProfil()>=3) { %>     <td width="25"> <%if (A.getAg_ldap_uid() != null) { %>&nbsp;<%=A.getAg_ldap_uid()%>  <% } %> </td>    <% } %>
+    <td width="25"  bgcolor="#FFFFFF"><strong>&nbsp;<%=A.getAf_telephone()%></strong>     </td>
+    <% if (userinfo.getProfil()>=2) { %> 	<td width="26"  bgcolor="#FFFFFF">&nbsp;<strong>&nbsp;<%=A.getAf_telephone_dir()%></strong></td>	<% } %>
+	
+    <td width="22"    ><strong>&nbsp;<%=A.getAf_bureau()%></strong></td>
+    <td   >&nbsp;
+		<%if (A.getSv_nom() != null && A.getSv_nom().length()>1) { %>	<%=A.getSv_nom()%> <% }   %>
+		<%if (A.getDv_nom() != null && A.getDv_nom().length()>1) { %>	<%=A.getDv_nom()%> <% }   %>
+ 	</td>
+    <td     nowrap bgcolor="#FFFFFF"> <%if (A.getAg_ldap_mail() != null) { %>&nbsp; <%=A.getAg_ldap_mail()%> <% }   %></td>
+    <td width="1"> <%=A.getAf_mission()%></td>
+	<td width="2"> <%=A.getAp_type()%></td>
+	  <td width="29"><font size="3"> &nbsp;&nbsp;&nbsp;<%=A.getAp_droits()%></font></td>
+  </tr>
+  <% } } } %>
+ 
+
+  <tr style="border-top: 1px solid #3b8211;" >      <td height="1" colspan=13 bgcolor="#FFFFFF">&nbsp; </td>    </tr> 
+</table>
+</div>
+<% } %>
+ 
+ 
+
+  

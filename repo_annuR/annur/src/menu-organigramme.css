@@ -1,0 +1,112 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*----------------typography------------*/
+h1.menu-organigramme {
+	color:#3b8211;
+	padding:0;
+	text-align:left;
+	font-size: 2em;
+	font-weight:bold;
+	/*line-height:3em;
+	vertical-align:middle;*/
+	display:block;
+	width:70%;
+}
+#titre img {
+	/*float:right;*/
+	max-height:4em;
+	float:right;
+	padding:0;
+	margin:0;
+}
+
+p.date-nom {
+	margin-top:0.3em;
+	text-align:left;
+	padding:0;
+	font-weight: bold;
+	color: #666;
+}
+p.date-nom span {
+	font-weight: normal;
+	color: #e04;
+}
+
+#pdf h2 {
+	text-align: right;
+	font-size:0.8em;
+	color: #e04;
+	margin:0;
+	padding-top:0.3em;
+}
+#pdf h2 a {
+	color: #e04;
+	margin:0;
+	padding:0;
+}
+#pdf h2 a:hover {
+	color: #0066cd;
+}
+/*----------------titre------------*/
+#titre {
+	 max-width:1152px;
+margin-left:auto;
+margin-right:auto;
+}
+/*----------------recherche------------*/
+form.menu {
+ padding-top: 0.5em;
+ padding-bottom: 0.5em;
+ border-top: thin solid #666;
+ max-width:1152px;
+margin-left:auto;
+margin-right:auto;
+}
+form span.vert {
+	color: #000000;
+	font-size:0.9em;
+	/*font-weight:bold;*/
+}
+/*----------------menu------------*/
+#menu-annuaire {
+	border-bottom: 1px solid #3b8211; 
+	border-top: 1px solid #3b8211;
+	max-width:1152px;
+	margin-left:auto;
+	margin-right:auto;
+	color: #3b8211;
+}
+	
+#menu-annuaire a {
+color : #000000;
+font-weight:normal;
+text-decoration:none;
+}	
+#menu-annuaire a:hover {
+color : #3b8211;
+text-decoration:underline;
+font-weight:bold;
+}
+
+#pdf {
+	 max-width:1152px;
+margin-left:auto;
+margin-right:auto;
+}
+/*---------------bloc login-----------*/
+#login {
+width: 30%;
+margin-left:auto;
+margin-right:auto;
+border: 1px solid #3b8211;
+padding:0;
+}
+#login h2 {
+width: 100%;
+background: #3b8211;
+/*padding:0.3em;*/
+color:#ffffff;
+font-size:1.5em;
+}

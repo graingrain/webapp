@@ -1,0 +1,67 @@
+<% if((userinfo.getProfil()>=0)) { %>
+<style type="text/css">
+<!--
+.Style2 {color: #000000}
+.Style3 {
+	color: #000000;
+	font-size: large;
+	font-style: italic;
+}
+-->
+</style>
+<table   border="0"  cellspacing="0"  >
+  <tr  class="titre1">
+    <td height="1" colspan=12>Liste des personnels disposant d'une acc&egrave;s cl&eacute; Gemalto </td>
+  </tr>
+  <tr bgcolor="#FFCC99">
+    <td height="1" colspan=15><img src="images-foad/orange2.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td width="76" colspan="-6"  ><div align="center"><em><strong> type </strong></em></div></td>
+    <td  ><div align="center"><em><strong> nom </strong></em></div></td>
+    <td width="42"><div align="center"><em><strong> num </strong></em></div></td>
+    <td width="36"><div align="center"><em><strong>serie</strong></em></div></td>
+    <td width="36"><div align="center"><em><strong> mail </strong></em></div></td>
+    <td width="179"><div align="center"><em><strong> commentaire </strong></em></div></td>
+    <td ><div align="center"><em><strong> expiration </strong></em></div></td>
+	<td bgcolor="#CCCCFF"> 
+      <div align="center"><em><strong> signature </strong></em></div></td>
+	<td ><div align="center"><em><strong> restitution </strong></em></div></td>
+    <td><div align="center"><em><strong>charte </strong></em></div></td>
+  </tr>
+  <%
+		 
+   for(int a=0; a < allasa.size(); a++) 
+   {    ItemAnnuaire A  = (ItemAnnuaire) allasa.get(a); %>
+  <tr>
+    <td width="76" colspan="-6"  ><strong>gemalto</strong> </td>
+    <td  ><a href="Dispatcher?operation=Chorus&table=agentchorus&code=<%=A.getAg_code()%>" ><strong><%=A.getAg_ldap_nom()%> </strong></a> <em><%=A.getAg_ldap_prenom()%></em> </td>
+    <td><em><strong><%=A.getAg_gemalto_num()%></strong></em></td>
+    <td><em><strong>&nbsp;</strong><%=A.getAg_gemalto_serie()%> </em> </td>
+    <td><em><%=A.getAg_ldap_mail()%></em> </td>
+    <td><em><%=A.getAg_gemalto_commentaire()%></em> </td>
+    <td><div align="center"><em><%=A.getAg_gemalto_date_expiration()%></em> </div></td>
+	<td bgcolor="#CCCCFF">
+<div align="center"><em><%=A.getAg_gemalto_charte_signee()%></em> </div></td>
+	<td><div align="center"><em><%=A.getAg_gemalto_date_restitution()%></em> </div></td>
+    <td><div align="center"><a href="Dispatcher?operation=CharteChorus&table=annuaire&code=<%=A.getAg_code()%>&uid=<%=A.getAg_ldap_uid()%>&nom=<%=A.getAg_ldap_nom()%>&prenom=<%=A.getAg_ldap_prenom()%>" target="_blank"><img src="images/menu.gif" alt="charte" border="0" /></a></div></td>
+  </tr>
+  <% } %>
+</table>
+<p>
+  <% } %>
+</p>
+<table align="left" bgcolor="#FFFF99" >
+  <tr bgcolor="#FFCC66">
+    <th width="922" scope="col"> <p class="Style3">Proc&eacute;dure:</p>
+	</th>
+  </tr>
+  <tr>
+    <th width="922" scope="col"> 
+      <p align="left" class="Style2">1-   obtenir le num&eacute;ro de s&eacute;rie: <a href="images/axalto.PNG" target="_blank"><img src="images/menu.gif" alt="charte" border="0" /></a></p>
+      <p align="left" class="Style2">2-   demander le certificat utilisateur avec un certificat Vettor <a href="https://personnes-auth.igc.education.fr:7443">https://personnes-auth.igc.education.fr:7443</a>: <a href="images/igc.tif" target="_blank"><img src="images/menu.gif" alt="charte" border="0" /></a></p>
+      <p align="left" class="Style2">3-   remplacer le certificats de l'AC Education Nationale sur la clé utilisateur <a href="images/certificats.png" target="_blank"><img src="images/menu.gif" alt="charte" border="0" /></a></p>
+      <p align="left" class="Style2">4-   imprimer et faire signer la charte </p>
+    <p align="left" class="Style2">Pour ajouter une cl&eacute;, rechercher l'agent puis : Cr&eacute;ation Cl&eacute; Chorus </p></th>
+  </tr>
+</table>

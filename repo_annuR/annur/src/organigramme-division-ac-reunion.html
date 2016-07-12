@@ -1,0 +1,648 @@
+
+
+
+
+
+
+
+
+<HTML>
+<head>
+<title>annuaire</title>
+<link rel="shortcut icon" type="images/x-icon" href="favicon-annuaire.png" />
+<script language="JavaScript1.2" src="resources/control.js"></script>
+<link href="boiler.plate.css" rel="stylesheet" type="text/css">
+<link href="organigramme.ac-reunion.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="menu.organigramme.css" type="text/css" media="screen" />
+</head>
+<script type="text/javascript" language="javascript">
+<!--
+// Updates the title of the frameset if possible (ns4 does not allow this)
+if (typeof(parent.document.title) == 'string') {
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+}
+// js form validation stuff
+var errorMsg0   = 'Formulaire incomplet !';
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+var errorMsg2   = ' n\'est pas un nombre valide !';
+var noDropDbMsg = 'La commande "DROP DATABASE" est d&eacute;sactiv&eacute;e.';
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+//-->
+function setPointer(theRow, thePointerColor)
+{
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {        return false;    }
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+        var theCells = theRow.getElementsByTagName('td');
+    }
+    else if (typeof(theRow.cells) != 'undefined') {        var theCells = theRow.cells;    }
+    else {        return false;    }
+    var rowCellsCnt  = theCells.length;
+    for (var c = 0; c < rowCellsCnt; c++) {
+        theCells[c].style.backgroundColor = thePointerColor;
+    }
+   return true;
+} // end of the 'setPointer()' function
+</script>
+
+<script language="JavaScript">
+function control() {
+if (document.form.code.value.length == 0) {
+   alert("Le Rne est obligatoire \nCorrigez le ...")
+   document.form.code.focus()
+   return false
+}
+if (document.form.password.value.length == 0) {
+   alert("Le Mot de passe est obligatoire \nCorrigez le ...")
+   document.form.password.focus()
+   return false
+}
+if (document.form.password.value.length < 3) {
+   alert("Le Mot de passe doit contenir 3 caractères minimum \nCorrigez le ...")
+   document.form.password.focus()
+   return false
+}
+}
+</script>
+<BODY  >
+
+ 
+<script language="JavaScript">
+function control1() {
+if (document.form1.recherche.value == "." ) {     return true ;  }
+if (document.form1.recherche.value.length < 3) {
+   alert("3 lettres minimum ...")
+   document.form1.recherche.focus()
+   return false
+}
+}
+function control2() {
+if (document.form2.recherche.value == "." ) {     return true ;  }
+if (document.form2.recherche.value.length < 3) {
+   alert("3 lettres minimum ...")
+   document.form2.recherche.focus()
+   return false
+}
+}
+</script>
+ 
+<div id="titre"><a href="http://ac-reunion.fr"><img src="http://web-aca2.in.ac-reunion.fr/fileadmin/charte-graphique/logos-academie/logovert-e-lareunion.png"></a><h1 class="menu-organigramme">Annuaire du rectorat de 
+    La R&Eacute;union</h1>
+	
+	 <p class="date-nom">
+	 <script language="JavaScript">
+                  <!-- 
+                  var monthNames = new Array( "janvier","fevrier","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","d&eacute;cembre");
+                  var dayNames = new Array( "Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi");
+                  var now= new Date();
+                  thisYear = now.getYear();
+                  thisHour= now.getHours();
+                  if(thisHour<=9) { thisHour="0"+thisHour;    }
+                  thisMinute= now.getMinutes();
+                  if(thisMinute<=9) { thisMinute="0"+thisMinute;  }
+                  if(thisYear < 1900) {thisYear += 1900}; // corrections if Y2K display problem
+                  document.write("&nbsp;"+dayNames[now.getDay()]+ " " +now.getDate() + " " + monthNames[now.getMonth()] + " " + thisYear+"  - "+thisHour+"h"+thisMinute);
+                  // -->
+                  </script>
+&nbsp;&brvbar;&nbsp;<span></span> <a href="javascript:history.back()">Retour</a></p>
+</div>
+
+<div id="formulaire">
+<form class="menu" name="form1" method="post" action="Dispatcher?operation=Recherche" onsubmit='return control1()'>
+                <input name="recherche"   type="text"     size="10">   
+                <input name="table"       type="hidden"   value="liste">
+				<input name="type"        type="hidden"   value=" "> 
+                <input name="code"        type="hidden"   value="-1"> 
+                <input type="submit" name="rechercheagt"  value="Recherche"  >
+<span class="vert">Nom/mission des agents, 3 lettres minimum, ou un point pour tous les agents</span>
+</form>
+
+ 
+<form class="menu" name="form2" method="post"  action="Dispatcher?operation=RechercheDiv" onsubmit='return control2()' >
+
+                <input name="recherche"   type="text"     size="10">   
+                <input name="table" type="hidden"   value="liste">
+				<input name="type"  type="hidden"   value=" "> 
+                <input name="code"  type="hidden"   value="-1"> 
+                <input type="submit" name="recherchediv" value="Recherche Division"  >
+                <span class="vert">Nom/missions des divisions ou des services, 3 lettres minimum, ou un point pour toutes les divisions</span>
+               
+</form> 	  
+</div> 	  
+	   
+<div id="menu-annuaire">
+      |<a href="Dispatcher?operation=login" > Identification</a> 
+
+
+
+ 
+
+|<a href="Dispatcher?operation=listediv" > Liste division</a>
+
+                               |<a href="Dispatcher?operation=voirmission&table=annuaire" > Voir  mission</a>                          
+                  
+ |<a href="Dispatcher?operation=trombi&table=trombi&recherche=." > Trombinoscope </a>                     
+
+|<a href="organigramme-ac-reunion.jsp" > Organigramme</a> 
+
+
+</div>
+<div id="pdf">
+   <h2>
+   <a href="http://www.ac-reunion.fr/fileadmin/rep_services/rep_communication/rep_academie/organigramme/organigramme-rectorat-de-la-reunion-aout2013.pdf">T&eacute;l&eacute;charger l'organigramme de l'acad&eacute;mie de la R&eacute;union en PDF
+ </a></h2></div> 
+ 
+ 
+<div id="content-row1" class="detail-agent"> 
+<table width="100%" border="0">
+
+
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=76" class="lien_noir14_none"> RECTEUR </a></span></p> </td>  
+    <td ><p><span class="titre1">Recteur</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 46</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 97</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=66" class="lien_noir14_none"> CAB </a></span></p> </td>  
+    <td ><p><span class="titre1">Cabinet du Recteur</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 40 ou 0262 48 14 41</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 97</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=73" class="lien_noir14_none"> IA </a></span></p> </td>  
+    <td ><p><span class="titre1">Inspecteur d`acad&eacute;mie</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>02 62 48 12 17</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>02 62 48 14 55</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=65" class="lien_noir14_none"> SG </a></span></p> </td>  
+    <td ><p><span class="titre1">Secr&eacute;tariat G&eacute;n&eacute;ral</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>02 62 48 14 01/02</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>02 62 48 10 60</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=78" class="lien_noir14_none"> MED </a></span></p> </td>  
+    <td ><p><span class="titre1">M&eacute;diatrice</span></p></td>
+    <td ><p><span class="titre1">
+	   </span></p></td>
+    
+       <td ><p><span class="titre1">
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=70" class="lien_noir14_none"> IA-IPR </a></span></p> </td>  
+    <td ><p><span class="titre1">Inspection du second degr&eacute;</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 24</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 90</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=77" class="lien_noir14_none"> PVS </a></span></p> </td>  
+    <td ><p><span class="titre1">Proviseur vie scolaire</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>02 62 48 14 34</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1">
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=80" class="lien_noir14_none"> PVS </a></span></p> </td>  
+    <td ><p><span class="titre1">Proviseur vie scolaire</span></p></td>
+    <td ><p><span class="titre1">
+	   </span></p></td>
+    
+       <td ><p><span class="titre1">
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=72" class="lien_noir14_none"> IEN1D </a></span></p> </td>  
+    <td ><p><span class="titre1">Inspection de l’Education Nationale du 1er  degr&eacute;</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 54</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 14 55</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=71" class="lien_noir14_none"> IEN2D </a></span></p> </td>  
+    <td ><p><span class="titre1">Inspection du second degr&eacute;</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 24</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 90</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=81" class="lien_noir14_none"> SAIA </a></span></p> </td>  
+    <td ><p><span class="titre1">Service acad&eacute;mique de l`inspection de l`apprentissage</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 77</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 10 52</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=75" class="lien_noir14_none"> CT </a></span></p> </td>  
+    <td ><p><span class="titre1">Conseillers techniques auprès du recteur</span></p></td>
+    <td ><p><span class="titre1">
+	   </span></p></td>
+    
+       <td ><p><span class="titre1">
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=30" class="lien_noir14_none"> DEC </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des examens et des concours</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 12 44</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 66</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=68" class="lien_noir14_none"> DES </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des &eacute;lèves et de la scolarit&eacute;</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 88</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 01</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=41" class="lien_noir14_none"> DSM </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des structures et des moyens</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 46</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 45</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=55" class="lien_noir14_none"> SAIO </a></span></p> </td>  
+    <td ><p><span class="titre1">Service acad&eacute;mique d`information et d’orientation</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 27 80</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 27 81</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=61" class="lien_noir14_none"> DAAC </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation acad&eacute;mique à l’&eacute;ducation artistique et l’action culturelle</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 12 06</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 12 05</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=56" class="lien_noir14_none"> DAET </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation aux enseignements techniques</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 61</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 10 06</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=60" class="lien_noir14_none"> DAFCO </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation acad&eacute;mique à la formation continue</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>02 62 29 78 30</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>02 62 29 66 15</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=62" class="lien_noir14_none"> DAREIC </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation Acad&eacute;mique aux relations europ&eacute;ennes et internationales et à la coop&eacute;ration</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 12 89</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 20</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=40" class="lien_noir14_none"> DIFOR </a></span></p> </td>  
+    <td ><p><span class="titre1">Division de la formation continue des personnels</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 39</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 40</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=38" class="lien_noir14_none"> DPATE </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des personnels administratifs, techniques et d’encadrement</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 14 16</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 99</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=36" class="lien_noir14_none"> DPEP </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des personnels de l`enseignement primaire</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262  48 14 85</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 12 31</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=35" class="lien_noir14_none"> DPES </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des personnels de l’enseignement secondaire</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 11 25</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 10 50</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=74" class="lien_noir14_none"> MDP </a></span></p> </td>  
+    <td ><p><span class="titre1">M&eacute;decin de pr&eacute;vention</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 73 19 32</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 73 19 35</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=79" class="lien_noir14_none"> SSP </a></span></p> </td>  
+    <td ><p><span class="titre1">Service social des personnels</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 76</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 51</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=47" class="lien_noir14_none"> DFP </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des finances et des prestations</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 11 56</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 10 62 / 11 71</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=15" class="lien_noir14_none"> DL </a></span></p> </td>  
+    <td ><p><span class="titre1">Division de la logistique</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 12 76</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 28 69 48</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=22" class="lien_noir14_none"> DSI </a></span></p> </td>  
+    <td ><p><span class="titre1">Division des services informatiques</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 10 33</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 10 22</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=53" class="lien_noir14_none"> DAHS </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation Acad&eacute;mique à l`Hygiène et à la S&eacute;curit&eacute;</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 11 70</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 40</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=1" class="lien_noir14_none"> DAISU </a></span></p> </td>  
+    <td ><p><span class="titre1">D&eacute;l&eacute;gation Acad&eacute;mique aux Infrastructures Scolaires et Universitaires</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 86</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 13 96</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=82" class="lien_noir14_none"> SIFE </a></span></p> </td>  
+    <td ><p><span class="titre1">Service infirmier en faveur des &eacute;lèves</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 24</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 54</em>
+    
+	</span></p></td>
+  </tr>
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=49" class="lien_noir14_none"> SMFE </a></span></p> </td>  
+    <td ><p><span class="titre1">Service m&eacute;dical en faveur des &eacute;lèves</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 48 13 23</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 48 11 45</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+<tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto"> <p><span class="titre1"> <a href="Dispatcher?operation=division&codedv=64" class="lien_noir14_none"> SSFE </a></span></p> </td>  
+    <td ><p><span class="titre1">Service social en faveur des &eacute;lèves</span></p></td>
+    <td ><p><span class="titre1">
+       T&eacute;l.&nbsp;<em>0262 73 19 31</em>
+	   
+	   </span></p></td>
+    
+       <td ><p><span class="titre1"> 
+	   Fax.&nbsp;<em>0262 73 19 34</em>
+    
+	</span></p></td>
+  </tr>
+  
+  
+</table> 
+</div>
+ </body>
+</html>
+

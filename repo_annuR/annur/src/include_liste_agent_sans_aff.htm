@@ -1,0 +1,88 @@
+<% 
+String trombi="";
+if  (request.getParameter("trombi") != null )
+trombi=request.getParameter("trombi");
+%>
+<script type="text/javascript" language="javascript">
+<!--
+// Updates the title of the frameset if possible (ns4 does not allow this)
+if (typeof(parent.document.title) == 'string') {
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+}
+// js form validation stuff
+var errorMsg0   = 'Formulaire incomplet !';
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+var errorMsg2   = ' n\'est pas un nombre valide !';
+var noDropDbMsg = 'La commande "DROP DATABASE" est désactivée.';
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+//-->
+function setPointer(theRow, thePointerColor)
+{
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {        return false;    }
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+        var theCells = theRow.getElementsByTagName('td');
+    }
+    else if (typeof(theRow.cells) != 'undefined') {        var theCells = theRow.cells;    }
+    else {        return false;    }
+    var rowCellsCnt  = theCells.length;
+    for (var c = 0; c < rowCellsCnt; c++) {
+        theCells[c].style.backgroundColor = thePointerColor;
+    }
+   return true;
+} // end of the 'setPointer()' function
+</script>
+
+
+<% if((userinfo.getProfil()>=0)) { %>
+<table style="width:100%; margin-top: 1em;" border="0">
+<tr style="border-top: 1px solid #3b8211;" >     <td height="1" colspan=13>
+<% if (trombi.equals("yes")) { %>
+<p class="nom"><a href="<%=table%>.jsp?trombi=no"  > Liste des personnels</a>
+- Trombinoscope  </p>
+  
+<% if((userinfo.getProfil()>=0)) { %>
+ddddd 
+<% } %> 
+<% } else { %>
+<p class="nom">Liste des personnels -  
+<a href="<%=table%>.jsp?trombi=yes"  > Trombinoscope</a> </p>
+</td>  </tr> 
+<%    System.out.println("profil de la cnx:"+userinfo.getProfil()); 		System.out.println("nb agents:"+allagent.size());
+      for(int a=0; a < allagent.size(); a++) 
+      {    ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a); %> 
+<% if((A.getAf_ag_code()==0)) { %>	   
+ <tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="0%" >     </td>
+    <td width="4%"      >
+	
+	 <a href="Dispatcher?operation=agentsansaff&bsubmit=Supprimer&codeag=<%=A.getAg_code()%>&table=listesansaff"><img src="images/poubelle.gif"   border="0"></a>  
+      <%if(A.getAg_ldap_synchro()==1&&userinfo.getProfil()>=3) { %>
+      <img src="images/subscribe.gif"> 
+      <% } else out.println("&nbsp;"); %>
+   </td>
+	 <td width="2%" >  
+	<% String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   File f = new File(fimg);
+	   if (f.length() != 0) out.println("<img src='images/tete.gif' border='0')>");
+	 %>
+	   </td>
+	
+	<td width="17%"><%=A.getAg_ldap_title()%> <p><a href="Dispatcher?operation=agentsansaff&table=agent&codeag=<%=A.getAg_code()%>"  ><%=A.getAg_code()%>    </a> </td>
+    <td width="22%"><%=A.getAg_ldap_nom()%> </p></td>
+    <td width="15%">   <%=A.getAg_ldap_prenom()%></td>
+    <td width="15%"><p><%=A.getAg_ldap_uid()%></p></td>
+    <td width="22%"  ><p><%=A.getAg_ldap_mail()%> </p></td>
+    <% if (userinfo.getProfil()>=2) { %>
+	<td width="0%"><p> </p></td>
+	<% } %>
+	 
+    <td width="0%"><p>   </p></td>
+    <td width="1%"><p>   </p></td>
+    <td width="2%" ><p>	 </p></td>
+    
+ </tr>
+   <% }} %>
+</table>
+<% } %>
+<% } %>
+ 

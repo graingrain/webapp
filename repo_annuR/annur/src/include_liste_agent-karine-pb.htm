@@ -1,0 +1,150 @@
+<% 
+String trombi="";
+if  (request.getParameter("trombi") != null )
+trombi=request.getParameter("trombi");
+%>
+<script type="text/javascript" language="javascript">
+<!--
+// Updates the title of the frameset if possible (ns4 does not allow this)
+if (typeof(parent.document.title) == 'string') {
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+}
+// js form validation stuff
+var errorMsg0   = 'Formulaire incomplet !';
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+var errorMsg2   = ' n\'est pas un nombre valide !';
+var noDropDbMsg = 'La commande "DROP DATABASE" est désactivée.';
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+//-->
+function setPointer(theRow, thePointerColor)
+{
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {        return false;    }
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+        var theCells = theRow.getElementsByTagName('td');
+    }
+    else if (typeof(theRow.cells) != 'undefined') {        var theCells = theRow.cells;    }
+    else {        return false;    }
+    var rowCellsCnt  = theCells.length;
+    for (var c = 0; c < rowCellsCnt; c++) {
+        theCells[c].style.backgroundColor = thePointerColor;
+    }
+   return true;
+} // end of the 'setPointer()' function
+</script>
+
+
+<% if((userinfo.getProfil()>=0)) { %>
+<table style="width:100%; margin-top: 1em;" border="0">
+<tr style="border-top: 1px solid #3b8211;" >     <td height="1" colspan=13>
+<% if (trombi.equals("yes")) { %>
+<p class="nom"><a href="<%=table%>.jsp?trombi=no"  > Liste des personnels</a>
+- Trombinoscope  </p>
+  
+<% if((userinfo.getProfil()>=0)) { %>
+<table   border="0"  cellspacing="0"  >
+   <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb agents:"+allagent.size());
+   int n=20;
+   int l=0;
+   int c=0;
+   String nom="";
+   for(int a=0; a < allagent.size(); a++) 
+   {   ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a);
+       String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   String wimg = "photo/"+A.getAg_ldap_uid()+".jpg";
+	    if (nom.equals(A.getAg_ldap_uid()))
+	   {
+	   }
+	   else
+	   {
+	   File f = new File(fimg);
+	   if (f.length() == 0)   wimg="photo/inconnu.jpg";
+	   { c=c+1;
+         if (l>0 && c==10) out.println("</tr>");	   
+            if (l==0  ||  c==10)
+              {   l=l+1;
+		          c=1;
+              %>   
+			   <tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+        	  <% }   %>
+	     
+    <td height="100" align="center" valign="bottom" bordercolor="#FF99FF"> <a href="Dispatcher?operation=division&codedv=<%=A.getDv_code()%>" title="<%=A.getDv_nom()%> <%=A.getSv_nom()%>"><img src=<%=wimg%>   width=100    > 
+      </a> <br> 
+        <font size="1"> <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>"> 
+        <strong><%=A.getAg_ldap_nom()%></strong></a>&nbsp;<%=A.getAg_ldap_prenom()%> 
+        </font> </td> 
+	   <% 
+	   nom = A.getAg_ldap_uid();
+	   }
+	      }	  } %>
+  </tr>
+</table>
+<% } %> 
+<% } else { %>
+<p class="nom">Liste des personnels -  
+<a href="<%=table%>.jsp?trombi=yes"  > Trombinoscope</a> </p>
+</td>  </tr> 
+<%    System.out.println("profil de la cnx:"+userinfo.getProfil()); 		System.out.println("nb agents:"+allagent.size());
+      for(int a=0; a < allagent.size(); a++) 
+      {    ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a); %>
+ <tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+    <td width="auto" > <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>">
+	<% String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   File f = new File(fimg);
+	   if (f.length() != 0) out.println("<img src='images/tete.gif' border='0')>");
+	 %>
+	     </a>    </td>
+    <td colspan="-6"  > 
+      <%if(A.getAg_ldap_synchro()==1&&userinfo.getProfil()>=3) { %>
+      <img src="images/subscribe.gif"> 
+      <% } else out.println("&nbsp;"); %>
+     
+    </td>
+    <td>
+	<%=A.getAg_ldap_title()%> <p>
+	 <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>">
+	 <%=A.getAg_ldap_nom()%></a>&nbsp;<%=A.getAg_ldap_prenom()%></p></td>
+    
+    <% if (userinfo.getProfil()>=3) { %>
+    <td><p>
+	 <%=A.getAg_code()%></p>
+	 </td>
+    <% } %>
+    <% if (userinfo.getProfil()>=3) { %>
+    <td><p><%=A.getAg_ldap_uid()%></p></td>
+    <% } %>
+	<%
+	     String tel1=A.getAf_telephone().replaceAll(" ", "");
+         if (tel1.indexOf("026248")!=-1)        {        	tel1=tel1.substring(6);          }
+         else                                   {        	tel1="0"+tel1;                   }
+		 String tel2=A.getAf_telephone_dir().replaceAll(" ", "");
+         if (tel2.indexOf("026248")!=-1)        {        	tel2=tel2.substring(6);          }
+         else                                   {        	tel2="0"+tel1;                   }
+		 String tel3=A.getAg_gsm().replaceAll(" ", "");
+         if (tel3.indexOf("026248")!=-1)        {        	tel3=tel3.substring(6);          }
+         else                                   {        	tel3="0"+tel3;                   }
+	%>
+	
+    <td width="10%"  ><p><a href="callto://<%=tel1%>"><%=A.getAf_telephone()%></a></p></td>
+    <% if (userinfo.getProfil()>=2) { %>
+	<td width="10%"><p><a href="callto://<%=tel2%>"><%=A.getAf_telephone_dir()%></a></p></td>
+	<% } %>
+	<% if (userinfo.getProfil()>=3) { %>
+    <td width="10%"><p><a href="callto://<%=tel3%>"><%=A.getAg_gsm()%></a></p></td>
+	<% } %>
+    <td><p><%=A.getAf_bureau()%></p></td>
+    <td ><p>
+	<%if (A.getSv_nom().length()<1) { %>
+	<a href="Dispatcher?operation=division&amp;codedv=<%=A.getDv_code()%>"><%=E.getDv_nom()%></a>
+	 
+	<% } else { %>
+	<a href="Dispatcher?operation=service&amp;codedv=<%=A.getDv_code()%>&amp;codesv=<%=A.getSv_code()%>"><%=A.getSv_nom()%></a>
+	<% } %></p></td>
+   <td width="30%"><p><%=A.getAf_mission()%></p>
+	   </td>
+ </tr>
+   <% } %>
+</table>
+<% } %>
+<% } %>
+ 

@@ -1,0 +1,118 @@
+
+<script type="text/javascript" language="javascript">
+
+<!--
+
+// Updates the title of the frameset if possible (ns4 does not allow this)
+
+if (typeof(parent.document.title) == 'string') {
+
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+
+}
+
+
+
+// js form validation stuff
+
+var errorMsg0   = 'Formulaire incomplet !';
+
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+
+var errorMsg2   = ' n\'est pas un nombre valide !';
+
+var noDropDbMsg = 'La commande "DROP DATABASE" est désactivée.';
+
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+
+//-->
+
+function setPointer(theRow, thePointerColor)
+
+{
+
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {
+
+        return false;
+
+    }
+
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+
+        var theCells = theRow.getElementsByTagName('td');
+
+    }
+
+    else if (typeof(theRow.cells) != 'undefined') {
+
+        var theCells = theRow.cells;
+
+    }
+
+    else {
+
+        return false;
+
+    }
+
+
+
+    var rowCellsCnt  = theCells.length;
+
+    for (var c = 0; c < rowCellsCnt; c++) {
+
+        theCells[c].style.backgroundColor = thePointerColor;
+
+    }
+
+
+
+    return true;
+
+} // end of the 'setPointer()' function
+
+
+
+</script>
+
+
+<% if((userinfo.getProfil()>=0)) { %>
+<table   border="0"  cellspacing="0"  >
+   <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb agents:"+allagent.size());
+   int n=20;
+   int l=0;
+   int c=0;
+   String nom="";
+   for(int a=0; a < allagent.size(); a++) 
+   {   ItemAnnuaire A  = (ItemAnnuaire) allagent.get(a);
+       String fimg = "/appli/annur/webapps/annur/photo/"+A.getAg_ldap_uid()+".jpg";
+	   String wimg = "photo/"+A.getAg_ldap_uid()+".jpg";
+	   if (nom.equals(A.getAg_ldap_uid()))
+	   {
+	   }
+	   else
+	   {
+	   File f = new File(fimg);
+	   if (f.length() != 0) 
+	   { c=c+1;
+         if (l>0 && c==10) out.println("</tr>");	   
+            if (l==0  ||  c==10)
+              {   l=l+1;
+		          c=1;
+              %>   
+			   <tr   onmouseover="setPointer(this, '#effceb')" onmouseout="setPointer(this, '#ffffff')" >
+        	  <% }   %>
+	     
+    <td height="100" align="center" valign="bottom" bordercolor="#FF99FF"> <a href="Dispatcher?operation=division&codedv=<%=A.getDv_code()%>" title="<%=A.getDv_nom()%> <%=A.getSv_nom()%>"><img src=<%=wimg%>   width=100    > 
+      </a> <br>
+        <font size="1"> <a href="Dispatcher?operation=agent&table=agent&codepl=<%=A.getPl_code()%>&codedv=<%=A.getDv_code()%>&codesv=<%=A.getSv_code()%>&codebu=<%=A.getBu_code()%>&codeag=<%=A.getAg_code()%>" title="<%=A.getAf_mission()%>"> 
+        <strong><%=A.getAg_ldap_nom()%></strong></a>&nbsp;<%=A.getAg_ldap_prenom()%> 
+        </font> </td> 
+	   <% 
+	   nom = A.getAg_ldap_uid();
+	   }
+	      }	  } %>
+  </tr>
+</table>
+<% } %>

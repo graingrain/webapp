@@ -1,0 +1,259 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>JS Date Selector</title>
+	<style type="text/css">
+body{
+	margin: 0;
+	padding: 0;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	font-size: 14px;
+}
+h1, h2, p, ul{
+	margin-left: 25%;
+}
+h1{
+	margin-top: 50px;
+}
+h2{
+	margin-top: 20px;
+}
+p{
+	margin-top: 5px;
+}
+#dateField{
+	float: left;
+	margin: 0 5px 0 0;
+}
+.info{
+	color: #aaa;
+}
+/* conteneur bouton + calendrier */
+#calMain{
+	height: 22px;
+	overflow: hidden;
+}
+/* bouton d'affichage*/
+#calToogle{
+	display: block;
+	width: 100px;
+	height: 22px;
+	padding-top: 2px;
+	background-color: #2e373f;
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+}
+#calToogle:hover{
+	background-color: #2673cb;
+}
+/* conteneur calendrier */
+#calendarWrap{
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	width: 210px;
+	padding: 5px 10px 10px 10px;
+	background-color: #2e373f;
+	background-color: rgba(46, 55, 63, 0.95);
+	border-radius: 10px;
+	-moz-box-shadow: 0 0 10px #555;
+	-webkit-box-shadow: 0 0 10px #555;
+	box-shadow: 0 0 10px #555;
+	font-size: 12px;
+}
+/* navigation dans le calendrier */
+#calendarWrap ul{
+	margin: 5px 0 10px 0;
+	padding: 0;
+}
+#calendarWrap li{
+	margin: 0;
+	padding: 0;
+	width: 20px;
+	display: inline-block;
+	*display: inline;
+}
+#calendarWrap li#calendarTitle{
+	width: 130px;
+	color: #ccc;
+	text-align: center;
+}
+#calendarWrap li input{
+	width: 20px;
+	background-color: #5d6f7f;
+	border: none;
+	color: #fff;
+}
+#calendarWrap li input:hover{
+	background-color: #6f8598;
+}
+/* calendrier */
+.calendar{
+	color: #fff;
+	border-collapse: collapse;
+}
+.calendar th{
+	color: #8ba7bf;
+	font-size: 16px;
+	font-weight: normal;
+	text-align: center;
+}
+.calendar td{
+	padding: 0;
+	border: none;
+}
+.calendar a{
+	display: block;
+	width: 30px;
+	padding: 3px 0 3px 0;
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	text-align: center;
+}
+.calendar .day:hover a{
+	background-color: #2673cb;
+	border-c????????????
+olor: #2673cb;
+}
+.calendar .selectedDay a{
+	background-color: #c44d38;
+	border-color: #c44d38;
+}
+	</style>
+<script type="text/javascript" >
+/*http://blog.niap3d.com/jsSimpleDatePickr*/
+function jsSimpleDatePickr(id){
+var me = this;
+me.dateDisp = new Date();
+me.dateSel = new Date();
+me.dayOrder = '1234560';
+me.dayName = ['D', 'L', 'M', 'M', 'J', 'V', 'S'];
+me.id = id;
+me.funcDateClic = me.classTable = me.classTd = me.classSelection = '';
+me.setDate = function(dateStr){
+	if(!dateStr) return 0;
+	var dateArr = dateStr.split('/');
+	if(isNaN(dateArr[0])) return 0;
+	today = new Date();
+	if(isNaN(dateArr[1])) dateArr[1] = today.getMonth();
+	else dateArr[1] = parseInt(dateArr[1], 10)-1;
+	if(isNaN(dateArr[2])) dateArr[2] = today.getFullYear();
+	else if(parseInt(dateArr[2], 10)<100) dateArr[2] = parseInt(dateArr[2], 10)+2000;
+	me.dateSel = new Date(dateArr[2], dateArr[1], dateArr[0]);
+	me.dateDisp = new Date(dateArr[2], dateArr[1], dateArr[0]);
+}
+me.setMonth = function(val){
+	var v = parseInt(val, 10);
+	if(val.charAt(0)=='+' || val.charAt(0)=='-') v = me.dateDisp.getMonth()+v;
+	me.dateDisp.setMonth(v);
+}
+me.setYear = function(val){
+	var v = parseInt(val, 10);
+	if(val.charAt(0)=='+' || val.charAt(0)=='-') v = me.dateDisp.getFullYear()+v;
+	me.dateDisp.setFullYear(v);
+}
+me.show = function(){
+	var nb = today = 0;
+	var month = me.dateDisp.getMonth();
+	var year = me.dateDisp.getFullYear();
+	if(month==me.dateSel.getMonth() && year==me.dateSel.getFullYear()) today = me.dateSel.getDate();
+	var h = '<table class="'+me.classTable+'"><tr>';
+	for(var i=0; i<7; i++){
+		h += '<th>'+me.dayName[me.dayOrder[i]]+'</th>';
+	}
+	h += '</tr><tr>';
+	var d = new Date(year, month, 1);
+	for(nb=0; nb<me.dayOrder.indexOf(d.getDay()); nb++){
+		h += '<td> </td>';
+	}
+	d.setMonth(month+1, 0);
+	for(i=1; i=d.getDate(); i++){
+		nb++;
+		if(nb>7){
+			nb = 1;
+			h += '</tr><tr>';
+		}
+		h += '<td class="'+(i==today ? me.classSelection:me.classTd)+'"><a href="#"'+(me.funcDateClic!='' ? ' onclick="'+me.funcDateClic+'(\''+i+'/'+(month+1)+'/'+year+'\', \''+me.id+'\');return false;"':'')+'>'+i+'</a></td>';
+	}
+	for(i=nb; i<7; i++){
+		h += '<td> </td>';
+
+	}
+	h += '</tr></table>';
+	document.getElementById(me.id).innerHTML = h
+}
+}
+</script>
+</head>
+<body>
+<h1>jsSimpleDatePickr</h1>
+<h2>Calendrier léger pour choisir une date en javascript.</h2>
+<p><input type="text" name="date" id="dateField" value="" /></p>
+<div id="calMain">
+	<input type="button" id="calToogle" value="Calendrier" onclick="calToogle();" />
+	<div id="calendarWrap">
+		<ul>
+			<li><input type="button" value="&laquo;" onclick="calYearNav('-1');" /></li><li><input type="button" value="&lsaquo;" onclick="calMonthNav('-1');" /></li><li id="calendarTitle"> </li><li><input type="button" value="&rsaquo;" onclick="calMonthNav('+1');" /></li><li><input type="button" value="&raquo;" onclick="calYearNav('+1');" /></li>
+		</ul>
+		<div id="calendar"></div>
+	</div>
+</div>
+<p class="info">Date au format DD/MM/AAAA</p>
+<p>Test pour montrer le fonctionnement de l'objet jsSimpleDatePickr.</p>
+<ul>
+	 
+</ul>
+ 
+<script type="text/javascript">
+//<![CDATA[
+function calnit(){
+	dateObj.setDate(dateFieldId.value);
+	dateObj.show();
+	calShowTitle();
+	calendarWrapId.style.display = "block";
+}
+function calToogle(){
+	if(calendarWrapId.style.display == "block"){
+		calendarWrapId.style.display = "none";
+	}else{
+		calnit();
+		calendarWrapId.style.display = "block";
+	}
+}
+function calMonthNav(val){
+	dateObj.setMonth(val);
+	dateObj.show();
+	calShowTitle();
+}
+function calYearNav(val){
+	dateObj.setYear(val);
+	dateObj.show();
+	calShowTitle();
+}
+function calClick(dateStr){
+	var dateArr = dateStr.split('/');
+	if(parseInt(dateArr[0], 10)<10) dateArr[0] = '0'+dateArr[0];
+	if(parseInt(dateArr[1], 10)<10) dateArr[1] = '0'+dateArr[1];
+	dateFieldId.value = dateArr[0]+'/'+dateArr[1]+'/'+dateArr[2];
+	calendarWrapId.style.display = "none";
+}
+function calShowTitle(){
+	monthName = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'];
+	document.getElementById('calendarTitle').innerHTML = monthName[dateObj.dateDisp.getMonth()]+' '+dateObj.dateDisp.getFullYear();
+}
+// crée l'objet jsSimpleDatePickr
+var dateObj = new jsSimpleDatePickr('calendar');
+dateObj.funcDateClic = 'calClick';
+dateObj.classTable = 'calendar';
+dateObj.classTd = 'day';
+dateObj.classSelection = 'selectedDay';
+dateFieldId = document.getElementById('dateField');
+calendarWrapId = document.getElementById('calendarWrap');
+//]]>
+</script>
+
+</body>
+</html>

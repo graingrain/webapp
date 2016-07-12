@@ -1,0 +1,81 @@
+
+<script type="text/javascript" language="javascript">
+<!--
+// Updates the title of the frameset if possible (ns4 does not allow this)
+if (typeof(parent.document.title) == 'string') {
+    // parent.document.title = 'mbox2.table1 sur le serveur localhost - phpMyAdmin 2.2.3';
+}
+
+// js form validation stuff
+var errorMsg0   = 'Formulaire incomplet !';
+var errorMsg1   = 'Ce n\'est pas un nombre !';
+var errorMsg2   = ' n\'est pas un nombre valide !';
+var noDropDbMsg = 'La commande "DROP DATABASE" est désactivée.';
+var confirmMsg  = 'Voulez-vous vraiment effectuer ';
+//-->
+function setPointer(theRow, thePointerColor)
+{
+    if (thePointerColor == '' || typeof(theRow.style) == 'undefined') {
+        return false;
+    }
+    if (typeof(document.getElementsByTagName) != 'undefined') {
+        var theCells = theRow.getElementsByTagName('td');
+    }
+    else if (typeof(theRow.cells) != 'undefined') {
+        var theCells = theRow.cells;
+    }
+    else {
+        return false;
+    }
+    var rowCellsCnt  = theCells.length;
+    for (var c = 0; c < rowCellsCnt; c++) {
+        theCells[c].style.backgroundColor = thePointerColor;
+    }
+    return true;
+} // end of the 'setPointer()' function
+</script>
+
+<% if((userinfo.getProfil()>=0)) { %>
+ <table width="100%"  >
+  <tr  class="titre1"> 
+    <td height="1" colspan=13 bgcolor="#FFFFFF"> 
+      <p class="Style3">Liste des partages: </p>
+      </td>
+  </tr> 
+   
+  <tr bgcolor="#FFFFCC"> 
+    <td width="23" > <div align="center"></div></td>
+	<td><div align="left"><strong>partage</strong></div></td>    
+	<td width="111"><div align="center"><strong>division</strong></div></td> 
+    <td width="132"> <div align="center"><strong>date création</strong></div></td>     
+    <td width="69"><div align="center"><strong>nb agents</strong></div></td>
+  </tr>
+   
+  <%    System.out.println("profil de la cnx:"+userinfo.getProfil());
+		System.out.println("nb partage:"+onepartage.size());
+   for(int a=0; a < onepartage.size(); a++) 
+   {    ItemAnnuaire A  = (ItemAnnuaire) onepartage.get(a); %>
+  <tr   onmouseover="setPointer(this, '#FFFFCC')" onmouseout="setPointer(this, '#ffffff')" > 
+    <td height="23"> 
+      <% if(A.getPa_integrite()==0)     { %>
+      <a href="Dispatcher?operation=partage&bsubmit=Supprimer&codepa=<%=A.getPa_code()%>&table=listepartage"><img src="images/poubelle.gif" width="14" height="14"></a> 
+      <% } else out.println("&nbsp;"); %>
+    </td>
+    <td width="146" height="23"> 
+      <div align="left"><a href="Dispatcher?operation=partage&codepa=<%=A.getPa_code()%>&table=partage&nompa=<%=A.getPa_nom()%>" class="Style1"><%=A.getPa_nom()%></a> </div></td>
+     <% if (userinfo.getProfil()>=3) { %>     
+    <td height="23">&nbsp;<%=A.getDv_nom()%></td>     
+    <% } %>
+    
+	 
+    
+     <% if (userinfo.getProfil()>=3) { %>     
+    <td height="23">&nbsp;<%=A.getPa_date_creation()%></td>     
+    <% } %>
+     <% if (userinfo.getProfil()>=3) { %>     
+    <td height="23" align="center">&nbsp;<%=A.getPa_integrite()%></td>     
+	<% } %>
+  </tr> 
+  <% } %>
+</table>
+<% } %> 
