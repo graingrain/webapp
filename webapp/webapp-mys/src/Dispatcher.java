@@ -51,6 +51,8 @@ public class Dispatcher extends HttpServlet {
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        System.out.println("-----------git 111111111111111111111111  ------------------------------------");
+        System.out.println("-----------webapp  juin 2016a 64bits  x  ------------------------------------");
         System.out.println("initserveur:"+InitServeur.dbgInitParameter(this));
         Const.dbg = InitServeur.valeurDebug(this);
         System.out.println("CneServlet.init Const.dbg="+Const.dbg);
