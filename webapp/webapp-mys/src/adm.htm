@@ -1,0 +1,290 @@
+
+ 
+
+
+ 
+<html>
+
+<head>
+
+   <title>Rectorat: enquete effectifs presents</title>
+
+   <meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+
+   <meta name="Description" content="A sample application developed with LiveWire.">
+
+ 
+
+
+</head><body  bgcolor="#fffff0" >
+<server>
+titreddt()
+var ddt  = project.cnxddt.connection("cnx ddt"); 
+var annu = project.cnxannu.connection("cnx annu");
+</server>
+<div align="center"><font face="Arial, Helvetica, sans-serif" size="4">Gestion 
+  des tables de libelle:</font></div>
+<BR>
+<FONT COLOR="#FF0000"><FONT SIZE=+2>Imprimantes:</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+  <server>
+	str = "select * from parametre where type = 1  order by libelle"
+    cursor = ddt.cursor(str)
+	while(cursor.next())
+	{</server>
+  <form method="post" action="dbmodimprimantes.htm">
+    <tr> 
+      <td width="25%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=10   value=`cursor.code` maxlength=40>
+          <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=10  value=`cursor.element` maxlength=40>
+          </font></div>
+      </td>
+      <td width="29%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="text" name="libelle" size=25 value=`cursor.libelle` maxlength=40>
+          </font></div>
+      </td>
+      <td colspan="2" width="46%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit">
+          </font></div>
+      </td>
+      
+    </tr>
+  </form>
+  <server>}</server>
+  <BR>
+  <form method="post" action="dbajoimprimantes.htm">
+    <tr> 
+      <td width="25%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="type" size=1   value=1  >
+          <input type="text" name="element"   maxlength=40 size="10">
+          </font></div>
+      </td>
+      <td width="29%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="text" name="libelle" size=25 maxlength=40>
+          </font></div>
+      </td>
+      <td width="46%"> 
+        <div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une imprimante" name="submit">
+          </font> </div>
+      </form>
+    
+  
+</table>
+
+<FONT COLOR="#FF0000"><FONT SIZE=+2>Machines Unix</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+  <server>	str = "select * from parametre where type = 8  " ;    cursor = ddt.cursor(str);	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit">
+          </font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+		  <form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=8  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une machine" name="submit">
+          </font></div></td></tr></form></table>
+		  
+<FONT COLOR="#FF0000"><FONT SIZE=+2>Pannes materiel: sujet</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+  <server>	str = "select * from parametre where type = 2  " ;    cursor = ddt.cursor(str);	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit">
+          </font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+<form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=2  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une panne : sujet" name="submit">
+          </font></div></td></tr></form></table>
+
+<FONT COLOR="#FF0000"><FONT SIZE=+2>Pannes materiel: verbe</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+<server>	str = "select * from parametre where type = 3  " ;    cursor = ddt.cursor(str);	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit">
+          </font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+<form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=3  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une panne : verbe" name="submit">
+          </font></div></td></tr></form></table>	
+		  
+		  <FONT COLOR="#FF0000"><FONT SIZE=+2>Résolution probleme : Verbe</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+<server>	str = "select * from parametre where type = 5  " ; cursor = ddt.cursor(str); 	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit"></font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+<form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=5  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une solution : sujet" name="submit"></font></div></td></tr></form></table>
+	
+		  <FONT COLOR="#FF0000"><FONT SIZE=+2>Demande logiciel : verbe</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+<server>	str = "select * from parametre where type = 6  " ; cursor = ddt.cursor(str); 	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit"></font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+<form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=6  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une solution : verbe" name="submit"></font></div></td></tr></form></table>
+		   
+		   <FONT COLOR="#FF0000"><FONT SIZE=+2>Demande logiciel : sujet</FONT></FONT><BR>
+<table width="90%" border="0" bgcolor="#FFFFFF" align="center">
+<server>	str = "select * from parametre where type = 7  " ; cursor = ddt.cursor(str); 	while(cursor.next())	{</server>
+<form method="post" action="dbmodimprimantes.htm"><tr> <td><div align="center"><font color="#0000FF"> 
+          <input type="hidden" name="code" size=30   value=`cursor.code` maxlength=40>
+		  <input type="hidden" name="type" size=1   value=`cursor.type`  >
+          <input type="text"   name="element" size=30  value=`cursor.element` maxlength=40></font></div>  </td>
+          <td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="modifier" name="submit">
+          <input type="submit" value="supprimer" name="submit"></font></div></td><td> <font color="#0000FF"> </font></form><server>}</server>
+<form method="post" action="dbajoimprimantes.htm"><tr><td><div align="center"><font color="#0000FF">
+          <input type="hidden" name="type" size=1   value=7  >
+		  <input type="text" name="element"   maxlength=40 size="30">
+          </font></div></td><td><div align="center"><font color="#0000FF"> 
+          <input type="submit" value="Ajouter une solution : complement" name="submit"></font></div></td></tr></form></table>
+		  
+		  		
+<server> 
+if (request.proj == 1)
+{
+reload_projet();
+}
+</server>
+
+
+<FONT COLOR="#0000FF"><B><I><U>Liste des services ayant acces aux demandes de travaux:</U></I></B></FONT><br> 
+<server>
+ 
+i=0
+while(i < project.imax)
+{
+</server>
+<font color="#0000FF">Division: 
+<server>write(project.tdiv[i]) </server>
+<font size="-2">( 
+<server>write(project.tcodediv[i])</server>
+)</font></font> <font color="#0000FF">
+<server>write(project.tser[i])</server>
+<font size="-2">( 
+<server>write(project.tcodeser[i])</server>
+)</font><br>
+<server>
+i++
+}
+</server>
+<BR>
+<FONT COLOR="#0000FF"><B><I><U>Liste des agents ayant acces aux demandes de travaux:(exploitation profilddt=1)</U></I></B></FONT><br> 
+<server>
+ 
+i=0
+while(i < project.usermax)
+{
+</server>
+<server>write(project.tuser[i])</server>
+<font color="#0000FF">
+<server>write(project.tcodeuser[i])</server>
+<br>
+<server>
+i++
+}
+</server>
+<BR>
+<B><I><U>Liste des agents ayant acces aux demandes de travaux:</U></I></B><br>
+<server>
+var annu = project.cnxannu.connection("cnx annu"); 
+str = "select * from agent where (agpass != '' and agpass != 'null')  "
+cursor = annu.cursor(str)
+while (cursor.next())
+{
+write(cursor.nom);write(" - ");write(cursor.prenom);write(" - "); 
+write("<B><I><FONT SIZE=-1><FONT COLOR=#FF0000>");write(cursor.initiales);write("</FONT></FONT></I></B>");
+write(" - pass: ");write(cursor.agpass);write(" - profil: ");write(cursor.profilddt);write(" - div: ");write(cursor.codediv);write(" - service: ");write(cursor.codeser);
+write("<br>")
+}
+cursor.close()
+annu.release() 
+</server>
+<BR>
+Modification des profiles dans l'<a href="http://tage.ac-reunion.fr/annu/login.htm">annuaire</a> 
+<br>
+Reinitialisation <a href="adm.htm?proj=1">des variables d'environnement projet</a> 
+<br>
+</font> 
+<center>
+</center>
+<font color="#0000FF"><BR>
+<B><I><U>Parametre du login en cours:</U></I></B><br>
+<server>write(client.agnom)</server>(<server>write(client.codeagt)</server>)
+profil : 
+<server>write(client.agprofil)</server>
+code ser:
+<server>write(client.svcle)</server>
+<BR>
+code division(client.codediv):
+<server>write(client.codediv)</server>
+<BR>
+code service(client.codeser) :
+<server>write(client.codeser)</server>
+,client.svnom(client.svnom): 
+<server>write(client.svnom)</server>
+<BR>
+code bureau (client.codebur) :
+<server>write(client.codebur)</server>
+<BR>
+initiales (client.initiales) :
+<server>write(client.initiales)</server>
+<BR>
+client.str :
+<server>write(client.str)</server>
+client.str2:
+<server>write(client.str2)</server>
+<server>
+ddt.release()
+annu.release()
+</server>
+<BR>
+</font>
+
+
+</body>
+
+</html>
+
