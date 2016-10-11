@@ -51,7 +51,7 @@ public class Dispatcher extends HttpServlet {
     
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        System.out.println("-----------git dddddddddddd 2222  ------------------------------------");
+        System.out.println("-----------git dddddddddddd 2222  kkkkkkkkkkkkkkkkkkkkkk------------------------------------");
         System.out.println("-----------first change  ------------------------------------");
           System.out.println("-----------webapp  juin 2016a 64bits  x  ------------------------------------");
         System.out.println("initserveur:"+InitServeur.dbgInitParameter(this));
@@ -60,7 +60,7 @@ public class Dispatcher extends HttpServlet {
         
         sc = this.getServletContext();
         
-        System.out.println("-----------webapp  juin 2016a 64bits  x  ------------------------------------");
+        System.out.println("---------- -                 webapp  octobre 2016 64bits  x  ------------------------------------");
         // get the WEBMASTER_EMAIL Context Parameter and store it a global variable for the servlet to access
         //WEBMASTER_EMAIL = (String) sc.getInitParameter("webmaster");
         //WEBMASTER_EMAIL = sc.getContext("webmaster");
@@ -101,7 +101,7 @@ public class Dispatcher extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver") ;
               
             
-            Connection  conn = DriverManager.getConnection(str_conn,"alain","trek250");
+            Connection  conn = DriverManager.getConnection(str_conn,"ses","ses1125");
            
             System.out.print("driver ok ______________________ : " );
             String racineServeurWeb = servletContext.getRealPath("/");
